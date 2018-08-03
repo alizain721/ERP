@@ -13,4 +13,15 @@ class User(models.Model):
         """This function is to get representation of User model"""
         return self.email
 
+    def authenticate(self, email, password,):
+        """This function is to authenticate user"""
+        try:
+            user = User.objects.get(email=email, password= password)
+        except User.DoesNotExist:
+            user = None
+        if user:
+            return True
+        else:
+            return False
+
 
