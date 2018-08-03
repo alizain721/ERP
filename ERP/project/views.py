@@ -21,3 +21,11 @@ class ProjectApiView(APIView):
             project_serializer = ProjectSerializer(projects, many=True)
         return Response({"data":project_serializer.data})
 
+    def post(self,request, format=None):
+      """This method will crete a new project object """
+      project_serializer = ProjectSerializer(data=request.data)
+      if project_serializer.is_valid():
+        project_serializer.save()
+        return Response({"message":"Project created successfully"},status = status.HTTP_201_CREATED)
+      else:
+          return Response({"message":project_serializer.errors},status = status.HTTP_403_FORBIDDEN)
