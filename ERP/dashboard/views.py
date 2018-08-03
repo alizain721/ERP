@@ -17,13 +17,17 @@ def signUp(request):
     """This is the view funtion for user signup and sigin with google authentication (frontend)"""
     if request.method == 'POST':
         data = JSONParser().parse(request)
-        user = models.User.objects.filter(email=data.get("email"))
+        try:
+            user = models.User.objects.get(email=data.get("email"))
+        except models.User.DoesNotExist:
+            user = None
 
         if user:
-            user_serializer = userSerializer(user, many=True)
-            print("***************")
-            print(user_serializer.data[0])
-            return JsonResponse(user_serializer.data[0])
+            if user.authenticate(data.get("email"), data.get("password")):
+                user_serializer = userSerializer(user)
+                return JsonResponse(user_serializer.data)
+            else:
+                return JsonResponse({"error": "incorrect Email or pasword"})
 
         else:
             serializer = userSerializer(data=data)
@@ -31,3 +35,7 @@ def signUp(request):
                 serializer.save()
                 return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
+
+
+
