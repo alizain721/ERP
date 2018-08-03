@@ -9,4 +9,8 @@ class User(models.Model):
     profile_pic = models.CharField(blank=True, max_length=1000)
     contact_info = models.CharField(blank=True, max_length=30)
 
+    def __str__(self):
+        """This function is to get representation of User model"""
+        return self.email
+
 
