@@ -1,4 +1,6 @@
 from django.db import models
+from project.models import Project
+
 
 class User(models.Model):
     """This is the User model for database"""
@@ -23,5 +25,11 @@ class User(models.Model):
             return True
         else:
             return False
+
+class User_Project(models.Model):
+    """This function is association class between user and projects"""
+    status = models.CharField(max_length=30, blank=True)
+    employee = models.ForeignKey(User,on_delete=models.CASCADE)
+    project = models.ForeignKey(Project,on_delete=models.CASCADE)
 
 
