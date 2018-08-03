@@ -29,3 +29,16 @@ class ProjectApiView(APIView):
         return Response({"message":"Project created successfully"},status = status.HTTP_201_CREATED)
       else:
           return Response({"message":project_serializer.errors},status = status.HTTP_403_FORBIDDEN)
+
+    def put(self,request,format=None):
+        """This method will be used to update project"""
+        project_id = request.data["id"]
+        project = Project.objects.filter(id=project_id)
+        if project:
+            project_serializer = ProjectSerializer(project, data=request.data)
+            if project_serializer.is_valid():
+                project_serializer.save()
+                return Response(project_serializer.data)
+            else:
+                return Response(project_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"message : Bad Request"},status=status.HTTP_400_BAD_REQUEST)
