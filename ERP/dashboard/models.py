@@ -9,4 +9,19 @@ class User(models.Model):
     profile_pic = models.CharField(blank=True, max_length=1000)
     contact_info = models.CharField(blank=True, max_length=30)
 
+    def __str__(self):
+        """This function is to get representation of User model"""
+        return self.email
+
+    def authenticate(self, email, password,):
+        """This function is to authenticate user"""
+        try:
+            user = User.objects.get(email=email, password= password)
+        except User.DoesNotExist:
+            user = None
+        if user:
+            return True
+        else:
+            return False
+
 
