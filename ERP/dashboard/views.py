@@ -6,7 +6,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework import status
 from rest_framework.response import Response
 from . import models
-from .serializers import userSerializer
+from .models import *
+from .serializers import userSerializer,UserProjectSerializer
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
@@ -35,7 +36,12 @@ def signUp(request):
                 serializer.save()
                 return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
-
-
-
-
+@csrf_exempt
+@api_view(['POST',])
+def user_projects(request):
+    """This method or api function will return all projects of employee, given employee_id as parameter"""
+    data = request.data
+    user_id = data["user_id"]
+    user_projects = UserProject.objects.filter(employee=user_id)
+    user_projects_serializer = UserProjectSerializer(user_projects, many=True)
+    return Response({"user_projects":user_projects_serializer.data},status=status.HTTP_200_OK)
