@@ -26,7 +26,7 @@ class User(models.Model):
         else:
             return False
 
-class User_Project(models.Model):
+class UserProject(models.Model):
     """This function is association class between user and projects"""
     status = models.CharField(max_length=30, blank=True)
     employee = models.ForeignKey(User,on_delete=models.CASCADE)
