@@ -1,7 +1,7 @@
 from rolepermissions.roles import AbstractUserRole
 
 
-class Employee(AstractUserRole):
+class Employee(AbstractUserRole):
     '''This is the role class for normal users'''
 
     available_permissions = {
