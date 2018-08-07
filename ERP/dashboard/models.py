@@ -35,6 +35,7 @@ class UserProjectRequest(models.Model):
     project = models.ForeignKey(Project,on_delete=models.CASCADE)
     request_type = models.CharField(max_length =50)
     status = models.CharField(max_length = 50, blank=True)
+    reason = models.TextField(max_length = 100, blank=True)
     def save(self, *args, **kwargs):
         """ Function that converts request_type to lower case at the time of saving it in database"""
         self.request_type = self.request_type.lower()
