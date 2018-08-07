@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'social_django',
     'oauth2_provider',
     'rest_framework_social_oauth2',
+    'rolepermissions',
 ]
 
 MIDDLEWARE = [
@@ -137,7 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Karachi'
 
 USE_I18N = True
 
@@ -153,6 +154,9 @@ STATIC_URL = '/static/'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "660776386404-a67luugfn3ej0qsqfc5m23ae1igss3s8.apps.googleusercontent.com"
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "teYUdaQ2hIDMsdtkG7uuYTW9"
+SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS = ['tintash.com']
 
 
 SOCIAL_AUTH_USER_MODEL = 'dashboard.User'
+ROLEPERMISSIONS_MODULE = 'ERP.roles'
+ROLEPERMISSIONS_REGISTER_ADMIN = True
