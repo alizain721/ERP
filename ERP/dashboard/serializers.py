@@ -13,7 +13,7 @@ class UserProjectSerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class for UserProject"""
         model = UserProject
-        fields = ('status', 'employee','project')
+        fields = ('status', 'employee','project','reason','id')
 
 class UserProjectRequestSerializer(serializers.ModelSerializer):
     """ This is the serializer class for UserProjectRequets"""
